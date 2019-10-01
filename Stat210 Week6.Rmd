@@ -1,0 +1,168 @@
+---
+title: "R Notebook"
+output: html_notebook
+author: "Brianna Cabrera"
+date: "10/1/19"
+---
+
+```{r setup}
+library(nycflights13)
+library(tidyverse)
+install.packages("nycflights13")
+"nycflights13"
+```
+
+
+##5.2.4 Exercises
+
+#1
+```{r}
+?flights
+flights
+filter(flights, arr_delay >= 2) #1
+filter(flights, dest == "IAH") #2
+airlines
+filter(flights, (carrier == "UA" | carrier == "AA" | carrier == "DL")) #3
+filter(flights, (month == 7 | month == 8 | month == 9)) #4
+filter(flights, arr_delay > 2, dep_delay == 0) #5
+filter(flights, dep_delay <= 1, air_time >= 30) #6
+filter(flights, (dep_time >= 0000 | dep_time <= 600)) #7
+```
+
+#2
+```{r}
+?between()
+```
+It finds the values between two values. This code could have been useful for number 7.
+
+#3
+```{r}
+dep<-select(flights, dep.time)
+```
+
+```{r}
+is.na.data.frame(flights)
+```
+
+#4
+These aren't missing because those would have to be exactly present in the data. 
+
+##5.3.1 Exercises
+#1
+```{r}
+arrange(flights)
+arrange(flights, desc(dep_delay)) #2
+arrange(flights, desc(air_time)) #3
+```
+#4 
+Flight 15 travelled the longest while flight 167 traveled the shortest.
+
+##5.4.1 Exercises
+
+1. 
+```{r}
+select(flights, dep.time)
+select(flights, dep_delay)
+select(flights, arr_time)
+select(flights, arr_delay)
+```
+#2
+```{r}
+select(flights, dep.time, dep_delay, arr_time, arr_delay)
+```
+This code only shows the values from the columns that I put in the code.
+
+#3
+```{r}
+?one_of()
+```
+
+#4
+```{r}
+select(flights, contains("TIME"))
+```
+This doesn't surprise me because every column shown has "time" in the title just like we had asked for in the code.
+
+##5.5.2 Exercises
+#1. 
+```{r}
+transmute(flights,
+       sched_arr_time - dep_time)
+```
+#2.
+```{r}
+select(flights, air_time)
+transmute(flights, 
+            arr_time - dep_time)
+```
+The calculation has larger numbers.
+
+#3
+
+```{r}
+select(flights, dep_time, sched_dep_time, dep_delay)
+```
+dep_time should be the same number as sched_dep_time and dep_delay should be zero.
+
+#4
+```{r}
+?min_rank
+```
+
+#5
+```{r}
+1:3 + 1:10
+```
+Results in an error because these ratios cannot be used as values to use for calculations.
+
+#6
+R provides tangent, cosine, sin, and their inverses.
+
+##5.6.7 Exercises
+
+#1 
+You can use group_by(), summarise(), count(), sum(), and ungroup()
+Departure delay is more important.
+
+#2
+```{r}
+
+```
+
+#3
+Departure delay is more important.
+
+#6
+```{r}
+?sort
+```
+It sorts data frames.
+
+##5.7.1 Exercises
+
+#1
+When mutate is combined to grouping, the new column made is grouped and ordered by the variables given in the code.
+
+#2
+```{r}
+arrange(flights, desc(tailnum))
+```
+#3
+```{r}
+arrange(flights, min_rank(dep_delay))
+```
+You should leave around 8pm.
+
+#4
+```{r}
+flights %>%
+  group_by(dest) %>%
+  select(dest)
+```
+
+#5
+```{r}
+?lag
+```
+
+
